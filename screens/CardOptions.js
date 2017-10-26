@@ -1,47 +1,63 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import fetchData from "../config/fetchData";
 export default class CardOptions extends React.Component {
   onNavigate = () => {
     const { navigate } = this.props.navigation;
     navigate("CreateQuiz", this.props.navigation.state.params);
   };
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
-        <View style={styles.card}>
-
-          <Text style={styles.textStyle}>
-            {this.props.navigation.state.params[0]}
-          </Text>
-          <MaterialCommunityIcons
-            name={"account-card-details"}
-            style={styles.iconStyle}
+        <View style={{ alignItems: "flex-end" }}>
+          <MaterialIcons
+            name={"delete"}
+            style={{ fontSize: 30, color: "#36414b" }}
+            onPress={() => {
+              fetchData.removeDeck(
+                this.props.navigation.state.params[0],
+                () => {
+                  this.props.navigation.navigate("DeckView");
+                }
+              );
+            }}
           />
-          <Text style={styles.textStyle}>
-            {`${this.props.navigation.state.params[1]} Cards In Deck`}
-          </Text>
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Button
-            raised
-            icon={{ name: "cached" }}
-            onPress={this.onNavigate}
-            title="Add A Card"
-            style={{ backgroundColor: "#B5DBFC" }}
-          />
-          <Button
-            raised
-            icon={{ name: "cached" }}
-            onPress={() =>
-              this.props.navigation.navigate(
-                "startQuiz",
-                this.props.navigation.state.params
-              )}
-            title="Start Quiz"
-          />
+        <View style={styles.cardContainer}>
+          <View style={styles.card}>
+            <Text style={styles.textStyle}>
+              {this.props.navigation.state.params[0]}
+            </Text>
+            <MaterialCommunityIcons
+              name={"account-card-details"}
+              style={styles.iconStyle}
+            />
+            <Text style={styles.textStyle}>
+              {`${this.props.navigation.state.params[1]} Cards In Deck`}
+            </Text>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Button
+              raised
+              onPress={this.onNavigate}
+              title="Add A Card"
+              buttonStyle={{ backgroundColor: "#36414b" }}
+            />
+            <Button
+              raised
+              onPress={() =>
+                this.props.navigation.navigate(
+                  "startQuiz",
+                  this.props.navigation.state.params
+                )}
+              title="Start Quiz"
+              buttonStyle={{ backgroundColor: "#36414b" }}
+            />
+          </View>
         </View>
       </View>
     );
@@ -51,9 +67,12 @@ export default class CardOptions extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#B5DBFC",
+    backgroundColor: "#B5DBFC"
+  },
+  cardContainer: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    flex: 1
   },
   card: {
     height: 400,

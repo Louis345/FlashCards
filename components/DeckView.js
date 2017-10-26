@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  Ionicons,
+  MaterialIcons,
+  Entypo,
+  FontAwesome,
+  MaterialCommunityIcons
+} from "@expo/vector-icons";
 import { List, ListItem } from "react-native-elements";
 import getData from "../config/fetchData";
 
@@ -21,12 +28,13 @@ export default class DeckView extends React.Component {
   };
   quizCardSize = quizName => {
     let cardObj = getData.getDeckSize(quizName);
-    console.log(cardObj);
+
     return 3;
   };
   render() {
     return (
-      <View>
+      <ScrollView>
+
         <List containerStyle={{ marginBottom: 20 }}>
           {this.state.quizCards.map((quizName, index) =>
             <ListItem
@@ -44,7 +52,7 @@ export default class DeckView extends React.Component {
           )}
         </List>
 
-      </View>
+      </ScrollView>
     );
   }
 }

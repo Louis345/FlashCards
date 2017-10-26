@@ -17,6 +17,7 @@ const api = {
       },
       question: []
     };
+
     try {
       await AsyncStorage.setItem(title, JSON.stringify(item), callback(true));
     } catch (error) {
@@ -27,6 +28,14 @@ const api = {
   },
   getDecks() {
     return AsyncStorage.getAllKeys();
+  },
+  checkSavedTitles(title, callback) {
+    let listPromise = AsyncStorage.getAllKeys();
+    let status = null;
+    listPromise.then(list => {
+      status = list.findIndex(key => key === title);
+      callback(status);
+    });
   },
   getDeckSize(callback) {
     let cardSize = [];
@@ -42,6 +51,20 @@ const api = {
         });
       });
     });
+  },
+  deleteAllDecks() {
+    AsyncStorage.clear();
+  },
+  removeDeck(title, callback) {
+    console.log(title);
+    try {
+      AsyncStorage.removeItem(title, () => {
+        callback();
+      });
+    } catch (error) {
+      // Error saving data
+      return error;
+    }
   },
   async addCardToDeck(key, cardInfo) {
     console.log("in addCardToDeck");

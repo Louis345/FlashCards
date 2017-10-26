@@ -14,7 +14,7 @@ import {
   Entypo,
   FontAwesome
 } from "@expo/vector-icons";
-const fakeData = ["text text text", "text text text", "text text text"];
+
 export default class Menu extends React.Component {
   onNavigate = screen => {
     const { navigate } = this.props.navigation;

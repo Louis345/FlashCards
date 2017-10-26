@@ -14,7 +14,12 @@ import {
   TabNavigator
 } from "react-navigation";
 import Router from "./config/Router";
+import { setLocalNotification } from "./config/notifications";
+
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
     return <Router />;
   }

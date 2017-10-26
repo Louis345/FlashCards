@@ -16,13 +16,17 @@ import {
   FontAwesome
 } from "@expo/vector-icons";
 import fetchData from "../config/fetchData";
+import FlashCard from "../components/FlashCard";
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from "../config/notifications";
 
 export default class Cards extends React.Component {
   componentDidMount() {
     let quizCards = fetchData.getDeck(this.props.navigation.state.params[0]);
     quizCards.then(card => {
       let quizData = JSON.parse(card);
-
       this.setState({ data: quizData.question });
     });
   }
@@ -128,13 +132,24 @@ export default class Cards extends React.Component {
   };
   render() {
     const { params } = this.props.navigation.state;
-    let { width, height } = Dimensions.get("window");
+
     if (this.state.quizTracker > params[1]) {
+      clearLocalNotification().then(setLocalNotification);
       return (
-        <View style={styles.cardStyle}>
-          <Text style={{ color: "black" }}>
-            {`You got ${this.state.right} right and ${this.state.wrong}  wrong`}
-          </Text>
+        <View
+          style={{
+            backgroundColor: "#F84D43",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <FlashCard
+            length={this.state.data.length}
+            right={this.state.right}
+            wrong={this.state.wrong}
+          />
+
         </View>
       );
     }
@@ -199,6 +214,24 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     backgroundColor: "#B5DBFC"
+  },
+  scoreCard: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 1,
+    borderBottomWidth: 1,
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
+    width: 100,
+    height: 100
   },
   cardStyle: {
     flexDirection: "row",
