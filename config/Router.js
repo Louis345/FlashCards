@@ -34,7 +34,7 @@ const MainNavigator = StackNavigator({
   CardOptions: {
     screen: CardOptions,
     navigationOptions: ({ navigation }) => ({
-      title: "DeckView"
+      title: "Card Info"
     })
   },
   CreateQuiz: {

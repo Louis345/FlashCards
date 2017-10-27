@@ -8,7 +8,10 @@ export default class CreateQuiz extends React.Component {
     answer: ""
   };
   onNavigate = () => {
-    this.props.navigation.navigate("DeckView");
+    const flashcardInfo = { ...this.props.navigation.state.params };
+    flashcardInfo[1]++;
+
+    this.props.navigation.navigate("CardOptions", flashcardInfo);
   };
   setQuestionAnswer = callback => {
     let response = fetchData.addCardToDeck(
@@ -26,8 +29,7 @@ export default class CreateQuiz extends React.Component {
         <Text
           style={{
             fontFamily: "American Typewriter",
-            fontSize: 25,
-            color: "bold"
+            fontSize: 25
           }}
         >
           Create A Flash Card
@@ -50,10 +52,17 @@ export default class CreateQuiz extends React.Component {
           title="Submit"
           buttonStyle={{ backgroundColor: "#fcd6b6", borderRadius: 10 }}
           onPress={() => {
-            this.setQuestionAnswer(() => {
-              this.setState({ question: "", answer: "" });
-              this.onNavigate();
-            });
+            if (
+              this.state.question.length === 0 ||
+              this.state.answer.length === 0
+            ) {
+              alert("Please Enter Valid Input");
+            } else {
+              this.setQuestionAnswer(() => {
+                this.setState({ question: "", answer: "" });
+                this.onNavigate();
+              });
+            }
           }}
         />
       </View>

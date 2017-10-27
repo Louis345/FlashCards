@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   menuContainer: {
-    flex: "flexWrap",
     borderWidth: 1,
     borderColor: "white",
     flexDirection: "row",

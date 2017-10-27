@@ -6,7 +6,8 @@ import {
   View,
   TouchableWithoutFeedback,
   Animated,
-  Dimensions
+  Dimensions,
+  Modal
 } from "react-native";
 import { Card, Button } from "react-native-elements";
 import {
@@ -80,7 +81,7 @@ export default class Cards extends React.Component {
 
         if (idx === this.state.index) {
           return (
-            <View style={styles.card1}>
+            <View key={idx} style={styles.card1}>
               <Animated.View style={[this.animatedValue.getLayout()]}>
                 <Card>
                   <View style={styles.cardStyle}>
@@ -99,7 +100,7 @@ export default class Cards extends React.Component {
           );
         }
         return (
-          <View style={styles.card1}>
+          <View key={idx} style={styles.card1}>
 
             <Card>
               <View style={styles.answer}>
@@ -144,12 +145,51 @@ export default class Cards extends React.Component {
             alignItems: "center"
           }}
         >
-          <FlashCard
-            length={this.state.data.length}
-            right={this.state.right}
-            wrong={this.state.wrong}
-          />
+          <View
+            style={{
+              flex: 0.8,
+              justifyContent: "center"
+            }}
+          >
+            <FlashCard
+              length={this.state.data.length}
+              right={this.state.right}
+              wrong={this.state.wrong}
+            />
 
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+
+              flex: 0.2
+            }}
+          >
+            <Button
+              icon={{ name: "envira", type: "font-awesome" }}
+              title="Try Again"
+              buttonStyle={styles.buttonStyles}
+              backgroundColor={"red"}
+              borderRadius={10}
+              onPress={() => {
+                this.setState({
+                  quizTracker: 0,
+                  index: 0
+                });
+              }}
+            />
+            <Button
+              icon={{ name: "envira", type: "font-awesome" }}
+              title="Exit"
+              buttonStyle={styles.buttonStyles}
+              backgroundColor={"red"}
+              borderRadius={10}
+              onPress={() => {
+                this.props.navigation.navigate("DeckView");
+              }}
+            />
+
+          </View>
         </View>
       );
     }

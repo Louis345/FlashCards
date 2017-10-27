@@ -6,6 +6,7 @@ import fetchData from "../config/fetchData";
 export default class CardOptions extends React.Component {
   onNavigate = () => {
     const { navigate } = this.props.navigation;
+
     navigate("CreateQuiz", this.props.navigation.state.params);
   };
   render() {
@@ -49,11 +50,17 @@ export default class CardOptions extends React.Component {
             />
             <Button
               raised
-              onPress={() =>
-                this.props.navigation.navigate(
-                  "startQuiz",
-                  this.props.navigation.state.params
-                )}
+              onPress={() => {
+                if (this.props.navigation.state.params[1] <= 0) {
+                  alert("Please Enter Cards in your deck");
+                }
+                if (this.props.navigation.state.params[1] > 0) {
+                  this.props.navigation.navigate(
+                    "startQuiz",
+                    this.props.navigation.state.params
+                  );
+                }
+              }}
               title="Start Quiz"
               buttonStyle={{ backgroundColor: "#36414b" }}
             />
@@ -93,7 +100,6 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "#B5DBFC",
     fontSize: 25,
-    fontFamily: "sans-serif",
     fontWeight: "bold",
     margin: 2
   }

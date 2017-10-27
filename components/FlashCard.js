@@ -16,6 +16,7 @@ import {
 } from "@expo/vector-icons";
 import pass from "../assets/emoji_shock.json";
 import fail from "../assets/empty_list.json";
+import { Button } from "react-native-elements";
 import Animation from "lottie-react-native";
 export default class FlashCard extends React.Component {
   componentDidMount() {
@@ -91,5 +92,8 @@ const styles = StyleSheet.create({
     fontFamily: "American Typewriter",
     paddingLeft: 5,
     paddingRight: 5
+  },
+  buttonStyle: {
+    marginBottom: 10
   }
 });

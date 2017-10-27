@@ -28,8 +28,6 @@ export default class DeckView extends React.Component {
   };
   quizCardSize = quizName => {
     let cardObj = getData.getDeckSize(quizName);
-
-    return 3;
   };
   render() {
     return (
