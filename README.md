@@ -8,7 +8,9 @@
 <h2>Getting Started</h2>
 <p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
 </hr>
-
+<h1>About The Project</h1>
+The app will allow users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks.
+</hr>
 <h3>Prerequisites</h3>
 <ol>
 <li>Xcode</li>
@@ -18,10 +20,10 @@
 </ol>
 </hr>
 
-<h3>installation</h3>
+<h3>Installation</h3>
  <p>Assuming the Prerequisites have been satisfied </p>
-  Clone the repository to a new directory
-
+  <p>Clone the repository to a new directory</p>
+  In the directory, type in these commands to run the program:
 
 ``` Yarn Install ```
 ``` Yarn Start ```
