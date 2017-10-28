@@ -26,6 +26,14 @@ import {
 } from "../config/notifications";
 
 export default class Cards extends React.Component {
+  state = {
+    index: 0,
+    data: [],
+    showAnswer: true,
+    quizTracker: 1,
+    right: 0,
+    wrong: 0
+  };
   componentDidMount() {
     let quizCards = fetchData.getDeck(this.props.navigation.state.params[0]);
     quizCards.then(card => {
@@ -35,8 +43,6 @@ export default class Cards extends React.Component {
   }
   componentWillMount() {
     this.animatedValue = new Animated.ValueXY(0, 0);
-    this.hideText = new Animated.Value(0);
-    this.showText = new Animated.Value(1);
   }
   showAnswer = () => {
     if (this.state.showAnswer) {
@@ -61,15 +67,6 @@ export default class Cards extends React.Component {
     }
   };
 
-  state = {
-    index: 0,
-    data: [],
-    showAnswer: true,
-    quizTracker: 1,
-    right: 0,
-    wrong: 0
-  };
-
   renderCards = () => {
     const animatedHideText = { opacity: this.hideText };
     const animatedShowText = { opacity: this.showText };
@@ -91,12 +88,12 @@ export default class Cards extends React.Component {
                     style={styles.cardStyle}
                   >
                     {this.state.showAnswer
-                      ? <Animated.Text style={styles.cardTextStyle}>
+                      ? <Text style={styles.cardTextStyle}>
                           {cards.question}
-                        </Animated.Text>
-                      : <Animated.Text style={styles.cardTextStyle}>
+                        </Text>
+                      : <Text style={styles.cardTextStyle}>
                           {cards.answer}
-                        </Animated.Text>}
+                        </Text>}
                   </TouchableOpacity>
 
                 </Card>
