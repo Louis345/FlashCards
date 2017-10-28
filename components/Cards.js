@@ -276,8 +276,7 @@ const styles = StyleSheet.create({
   },
   cardTextStyle: {
     fontSize: 19,
-    padding: 20,
-    fontFamily: "American Typewriter"
+    padding: 20
   },
   card1: {
     position: "absolute",

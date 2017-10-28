@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginRight: 5,
     fontSize: 20,
-    fontFamily: "American Typewriter",
     paddingLeft: 5,
     paddingRight: 5
   },

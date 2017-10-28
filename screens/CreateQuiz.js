@@ -28,7 +28,6 @@ export default class CreateQuiz extends React.Component {
       <View style={styles.container}>
         <Text
           style={{
-            fontFamily: "American Typewriter",
             fontSize: 25
           }}
         >
