@@ -20,11 +20,8 @@
 
 <h3>installation</h3>
  <p>Assuming the Prerequisites have been satisfied </p>
- <ol>
-  <li>Clone the repository to a new directory.</li>
-```bash
-yarn install
-yarn start
-```
+  Clone the repository to a new directory
 
-  </ol>
+
+``` Yarn Install ```
+``` Yarn Start ```
