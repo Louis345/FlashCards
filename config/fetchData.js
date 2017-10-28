@@ -56,7 +56,6 @@ const api = {
     AsyncStorage.clear();
   },
   removeDeck(title, callback) {
-    console.log(title);
     try {
       AsyncStorage.removeItem(title, () => {
         callback();
@@ -67,8 +66,6 @@ const api = {
     }
   },
   async addCardToDeck(key, cardInfo) {
-    console.log("in addCardToDeck");
-    console.log(key);
     let card = AsyncStorage.getItem(key);
     card.then(info => {
       const restoredCard = JSON.parse(info);

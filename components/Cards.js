@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Animated,
   Dimensions,
   Modal
@@ -18,6 +19,7 @@ import {
 } from "@expo/vector-icons";
 import fetchData from "../config/fetchData";
 import FlashCard from "../components/FlashCard";
+import { primaryBackgroundColor } from "../styles/colors";
 import {
   clearLocalNotification,
   setLocalNotification
@@ -83,8 +85,11 @@ export default class Cards extends React.Component {
           return (
             <View key={idx} style={styles.card1}>
               <Animated.View style={[this.animatedValue.getLayout()]}>
-                <Card>
-                  <View style={styles.cardStyle}>
+                <Card onPress={() => this.showAnswer()}>
+                  <TouchableOpacity
+                    onPress={() => this.showAnswer()}
+                    style={styles.cardStyle}
+                  >
                     {this.state.showAnswer
                       ? <Animated.Text style={styles.cardTextStyle}>
                           {cards.question}
@@ -92,7 +97,7 @@ export default class Cards extends React.Component {
                       : <Animated.Text style={styles.cardTextStyle}>
                           {cards.answer}
                         </Animated.Text>}
-                  </View>
+                  </TouchableOpacity>
 
                 </Card>
               </Animated.View>
@@ -101,18 +106,11 @@ export default class Cards extends React.Component {
         }
         return (
           <View key={idx} style={styles.card1}>
-
             <Card>
               <View style={styles.answer}>
-                <Text
-                  text={{
-                    fontSize: 19,
-                    padding: 20,
-                    fontFamily: "American Typewriter"
-                  }}
-                >
+                <Animated.Text style={styles.cardTextStyle}>
                   {cards.question}
-                </Text>
+                </Animated.Text>
               </View>
             </Card>
           </View>
@@ -137,14 +135,7 @@ export default class Cards extends React.Component {
     if (this.state.quizTracker > params[1]) {
       clearLocalNotification().then(setLocalNotification);
       return (
-        <View
-          style={{
-            backgroundColor: "#F84D43",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
+        <View style={styles.results}>
           <View
             style={{
               flex: 0.8,
@@ -161,7 +152,6 @@ export default class Cards extends React.Component {
           <View
             style={{
               flexDirection: "row",
-
               flex: 0.2
             }}
           >
@@ -172,10 +162,10 @@ export default class Cards extends React.Component {
               backgroundColor={"red"}
               borderRadius={10}
               onPress={() => {
-                this.setState({
-                  quizTracker: 0,
-                  index: 0
-                });
+                this.props.navigation.navigate(
+                  "CardOptions",
+                  this.props.navigation.state.params
+                );
               }}
             />
             <Button
@@ -253,7 +243,13 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: "#B5DBFC"
+    backgroundColor: primaryBackgroundColor
+  },
+  results: {
+    backgroundColor: "#F84D43",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
   scoreCard: {
     alignItems: "center",
@@ -290,20 +286,7 @@ const styles = StyleSheet.create({
     top: 24,
     zIndex: 25
   },
-  card2: {
-    position: "absolute",
-    top: 12,
-    left: 9,
-    right: 9,
-    zIndex: 30
-  },
-  card3: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 40
-  },
+
   topIconContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

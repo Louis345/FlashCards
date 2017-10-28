@@ -8,16 +8,19 @@ import {
   Animated,
   Dimensions
 } from "react-native";
+
 import {
   Ionicons,
   MaterialIcons,
   Entypo,
   FontAwesome
 } from "@expo/vector-icons";
+
 import pass from "../assets/emoji_shock.json";
 import fail from "../assets/empty_list.json";
 import { Button } from "react-native-elements";
 import Animation from "lottie-react-native";
+
 export default class FlashCard extends React.Component {
   componentDidMount() {
     this.animation.play();

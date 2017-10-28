@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import fetchData from "../config/fetchData";
+import { primaryBackgroundColor } from "../styles/colors.js";
 export default class CardOptions extends React.Component {
   onNavigate = () => {
     const { navigate } = this.props.navigation;

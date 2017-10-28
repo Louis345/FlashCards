@@ -12,9 +12,11 @@ export default class CreateADeck extends React.Component {
         alert("The title is already in Use");
       } else {
         let status = fetchData.saveDeckTitle(this.state.title, response => {
+          let title = this.state.title;
           response && this.setState({ title: "" });
           alert("Title saved");
-          this.props.navigation.navigate("DeckView");
+          console.log(this.state.title);
+          this.props.navigation.navigate("CardOptions", [title, 0]);
         });
       }
     });

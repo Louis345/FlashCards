@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+
 import {
   Ionicons,
   MaterialIcons,
@@ -7,6 +8,8 @@ import {
   FontAwesome,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
+
+import { badgeColor } from "../styles/colors";
 import { List, ListItem } from "react-native-elements";
 import getData from "../config/fetchData";
 
@@ -41,7 +44,7 @@ export default class DeckView extends React.Component {
               title={quizName}
               badge={{
                 value: this.state.cardSize[index],
-                textStyle: { color: "orange" },
+                textStyle: { color: badgeColor },
                 containerStyle: { marginTop: 3 }
               }}
               onPressRightIcon={() =>
@@ -59,14 +62,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#B5DBFC",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  card: {
-    height: 400,
-    width: 300,
-    backgroundColor: "#fff",
-    borderRadius: 50,
     alignItems: "center",
     justifyContent: "center"
   }
