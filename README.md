@@ -22,6 +22,9 @@
  <p>Assuming the Prerequisites have been satisfied </p>
  <ol>
   <li>Clone the repository to a new directory.</li>
-  ```<li>Run Yarn Install</li>```
-  ```<li>Yarn Start</li>```
+```bash
+yarn install
+yarn start
+```
+
   </ol>
