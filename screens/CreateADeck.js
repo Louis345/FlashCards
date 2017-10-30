@@ -15,7 +15,7 @@ export default class CreateADeck extends React.Component {
           let title = this.state.title;
           response && this.setState({ title: "" });
           alert("Title saved");
-          console.log(this.state.title);
+
           this.props.navigation.navigate("CardOptions", [title, 0]);
         });
       }
@@ -27,7 +27,7 @@ export default class CreateADeck extends React.Component {
         <FormLabel>Create a List</FormLabel>
         <FormInput
           containerStyle={{ marginBottom: 45 }}
-          inputStyle={{ color: "#fcd6b6" }}
+          inputStyle={{ color: "#fff" }}
           onChangeText={title => this.setState({ title })}
           value={this.state.title}
           autoComplete={false}

@@ -3,7 +3,21 @@ import { AsyncStorage } from "react-native";
 import fetchData from "./fetchData";
 
 const NOTIFICATION_KEY = "flash_cards";
-
+function createNotification() {
+  return {
+    title: "Friendly Remainder",
+    body: "👋 don't forget to take your quiz Today",
+    ios: {
+      sound: true
+    },
+    android: {
+      sound: true,
+      priority: "high",
+      sticky: false,
+      vibrate: true
+    }
+  };
+}
 export function getDailyRemainderValue() {
   return {
     today: "Dont forget to study"

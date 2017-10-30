@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import fetchData from "../config/fetchData";
-import { primaryBackgroundColor } from "../styles/colors.js";
+import { primaryBackgroundColor, fontStyle } from "../styles/colors.js";
 export default class CardOptions extends React.Component {
   onNavigate = () => {
     const { navigate } = this.props.navigation;
@@ -75,7 +75,7 @@ export default class CardOptions extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#B5DBFC"
+    backgroundColor: "primaryBackgroundColor"
   },
   cardContainer: {
     alignItems: "center",
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     marginBottom: 36
   },
   iconStyle: {
-    color: "#B5DBFC",
+    color: "primaryBackgroundColor",
     fontSize: 100
   },
   textStyle: {
-    color: "#B5DBFC",
+    color: "primaryBackgroundColor",
     fontSize: 25,
     fontWeight: "bold",
     margin: 2

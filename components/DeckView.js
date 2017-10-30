@@ -15,12 +15,18 @@ import getData from "../config/fetchData";
 
 export default class DeckView extends React.Component {
   state = { quizCards: [], cardSize: [] };
+
+  componentWillReceiveProps(nextProps) {
+    alert(nextProps);
+    console.log("here in DeckVIew");
+  }
   componentDidMount() {
     let list = getData.getDecks();
 
     let cardSize = getData.getDeckSize(size => {
       list.then(quizCards => {
-        this.setState({ quizCards, cardSize: size });
+        let filteredKeys = getData.removeNotificationSync(quizCards);
+        this.setState({ quizCards: filteredKeys, cardSize: size });
       });
     });
   }

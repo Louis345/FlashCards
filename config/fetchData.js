@@ -37,15 +37,27 @@ const api = {
       callback(status);
     });
   },
+  removeNotificationSync(list) {
+    let removedNotification = list.filter((items, idx) => {
+      return items !== "flash_cards";
+    });
+    return removedNotification;
+  },
   getDeckSize(callback) {
     let cardSize = [];
     AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (err, stores) => {
+      //remove first key
+      let filteredKeys = this.removeNotificationSync(keys);
+
+      AsyncStorage.multiGet(filteredKeys, (err, stores) => {
         stores.map((result, i, store) => {
           // get at each store's key/value so you can work with it
+
           let key = store[i][0];
           let value = store[i][1];
+
           let parsedCard = JSON.parse(value);
+
           cardSize.push(parsedCard.question.length);
           callback(cardSize);
         });

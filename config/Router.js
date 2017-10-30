@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet, Button, TouchableOpacity, Text } from "react-native";
 import {
   DrawerNavigator,
   StackNavigator,
@@ -16,7 +16,8 @@ import {
   Ionicons,
   MaterialIcons,
   Entypo,
-  FontAwesome
+  FontAwesome,
+  IOSIcon
 } from "@expo/vector-icons";
 const MainNavigator = StackNavigator({
   Home: {
@@ -34,7 +35,22 @@ const MainNavigator = StackNavigator({
   CardOptions: {
     screen: CardOptions,
     navigationOptions: ({ navigation }) => ({
-      title: "Card Info"
+      title: "Card Info",
+      headerLeft: (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("DeckView");
+          }}
+        >
+          <Ionicons
+            name={"ios-arrow-back"}
+            onPress={() => {
+              navigation.navigate("DeckView");
+            }}
+            style={{ fontSize: 30, margin: 5, color: "blue" }}
+          />
+        </TouchableOpacity>
+      )
     })
   },
   CreateQuiz: {
@@ -62,7 +78,7 @@ class MyNotificationsScreen extends React.Component {
   render() {
     return (
       <Button
-        onPress={() => this.props.navigation.goBack()}
+        onPress={() => this.props.navigation.navigate("DeckView")}
         title="Go back home"
       />
     );
@@ -87,7 +103,11 @@ const bottomNavigator = TabNavigator(
       navigationOptions: ({ navigation }) => ({
         title: "Home",
         tabBarIcon: ({ tintColor }) =>
-          <Ionicons name={"ios-home-outline"} style={[styles.iconStyle]} />
+          <Ionicons
+            name={"ios-home-outline"}
+            onPress={() => navigation.navigate("DeckView")}
+            style={[styles.iconStyle]}
+          />
       })
     },
     CreateADeck: {

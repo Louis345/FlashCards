@@ -26,14 +26,6 @@ import {
 } from "../config/notifications";
 
 export default class Cards extends React.Component {
-  state = {
-    index: 0,
-    data: [],
-    showAnswer: true,
-    quizTracker: 1,
-    right: 0,
-    wrong: 0
-  };
   componentDidMount() {
     let quizCards = fetchData.getDeck(this.props.navigation.state.params[0]);
     quizCards.then(card => {
@@ -44,27 +36,16 @@ export default class Cards extends React.Component {
   componentWillMount() {
     this.animatedValue = new Animated.ValueXY(0, 0);
   }
+  state = {
+    index: 0,
+    data: [],
+    showAnswer: true,
+    quizTracker: 1,
+    right: 0,
+    wrong: 0
+  };
   showAnswer = () => {
-    if (this.state.showAnswer) {
-      Animated.timing(this.showText, {
-        toValue: 0,
-        duration: 1000
-      }).start(() => {
-        this.setState({ showAnswer: false });
-      });
-    } else {
-      Animated.timing(this.hideText, {
-        toValue: 0
-      }).start(() => {
-        this.setState({
-          showAnswer: !this.state.showAnswer
-        });
-        Animated.timing(this.showText, {
-          toValue: 1,
-          duration: 1000
-        }).start();
-      });
-    }
+    this.setState({ showAnswer: !this.state.showAnswer });
   };
 
   renderCards = () => {
@@ -104,10 +85,10 @@ export default class Cards extends React.Component {
         return (
           <View key={idx} style={styles.card1}>
             <Card>
-              <View style={styles.answer}>
-                <Animated.Text style={styles.cardTextStyle}>
+              <View style={styles.cardStyle}>
+                <Text style={styles.cardTextStyle}>
                   {cards.question}
-                </Animated.Text>
+                </Text>
               </View>
             </Card>
           </View>
@@ -159,10 +140,10 @@ export default class Cards extends React.Component {
               backgroundColor={"red"}
               borderRadius={10}
               onPress={() => {
-                this.props.navigation.navigate(
-                  "CardOptions",
-                  this.props.navigation.state.params
-                );
+                this.setState({
+                  quizTracker: 0,
+                  index: 0
+                });
               }}
             />
             <Button
