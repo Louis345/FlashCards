@@ -75,7 +75,7 @@ export default class CardOptions extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "primaryBackgroundColor"
+    backgroundColor: primaryBackgroundColor
   },
   cardContainer: {
     alignItems: "center",
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     marginBottom: 36
   },
   iconStyle: {
-    color: "primaryBackgroundColor",
+    color: primaryBackgroundColor,
     fontSize: 100
   },
   textStyle: {
-    color: "primaryBackgroundColor",
+    color: primaryBackgroundColor,
     fontSize: 25,
     fontWeight: "bold",
     margin: 2
