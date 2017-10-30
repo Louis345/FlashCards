@@ -140,10 +140,10 @@ export default class Cards extends React.Component {
               backgroundColor={"red"}
               borderRadius={10}
               onPress={() => {
-                this.setState({
-                  quizTracker: 0,
-                  index: 0
-                });
+                this.props.navigation.navigate(
+                  "startQuiz",
+                  this.props.navigation.state.params
+                );
               }}
             />
             <Button

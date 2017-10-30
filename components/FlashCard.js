@@ -40,7 +40,7 @@ export default class FlashCard extends React.Component {
           <View style={styles.scoreCardContainer}>
             <Text style={styles.scoreText}>{right}</Text>
             <Text style={styles.scoreText}>{wrong}</Text>
-            <Text style={styles.scoreText}>%{percentage}</Text>
+            <Text style={styles.scoreText}>{percentage}%</Text>
           </View>
           <Animation
             ref={animation => {
