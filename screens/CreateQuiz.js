@@ -1,70 +1,83 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { FormLabel, FormInput, Button } from "react-native-elements";
-import fetchData from "../config/fetchData";
+import React from 'react';
+import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
+import fetchData from '../config/fetchData';
+import Card from '../components/Card';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export default class CreateQuiz extends React.Component {
   state = {
-    question: "",
-    answer: ""
+    front: '',
+    back: '',
+    frontSide: false,
+    backSide: false
   };
   onNavigate = () => {
     const flashcardInfo = { ...this.props.navigation.state.params };
     flashcardInfo[1]++;
 
-    this.props.navigation.navigate("CardOptions", flashcardInfo);
+    this.props.navigation.navigate('CardOptions', flashcardInfo);
   };
   setQuestionAnswer = callback => {
     let response = fetchData.addCardToDeck(
       this.props.navigation.state.params[0],
       {
-        question: this.state.question,
-        answer: this.state.answer
+        question: this.state.front,
+        answer: this.state.back
       }
     );
     callback();
   };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text
-          style={{
-            fontSize: 25
-          }}
-        >
-          Create A Flash Card
-        </Text>
-        <FormInput
-          placeholder="Enter the Question"
-          onChangeText={question => this.setState({ question })}
-          value={this.state.question}
-          autoComplete={false}
-          autoCorrect={false}
-        />
-        <FormInput
-          placeholder="The answer"
-          onChangeText={answer => this.setState({ answer })}
-          value={this.state.answer}
-          autoComplete={false}
-          autoCorrect={false}
-        />
-        <Button
-          title="Submit"
-          buttonStyle={{ backgroundColor: "#fcd6b6", borderRadius: 10 }}
-          onPress={() => {
-            if (
-              this.state.question.length === 0 ||
-              this.state.answer.length === 0
-            ) {
-              alert("Please Enter Valid Input");
-            } else {
-              this.setQuestionAnswer(() => {
-                this.setState({ question: "", answer: "" });
-                this.onNavigate();
-              });
-            }
-          }}
-        />
-      </View>
+      <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+        <View style={{ justifyContent: 'space-between', flex: 1 }}>
+          <Card
+            front={this.state.front}
+            back={this.state.back}
+            frontSide={this.state.frontSide}
+            backSide={this.state.backSide}
+          />
+          <FormInput
+            placeholder="Front Side"
+            autoComplete={false}
+            autoCorrect={false}
+            onChangeText={input => this.setState({ front: input })}
+            onFocus={() => this.setState({ frontSide: true, backSide: false })}
+          />
+          <FormInput
+            placeholder="Back Side"
+            autoComplete={false}
+            autoCorrect={false}
+            onChangeText={input => this.setState({ back: input })}
+            onFocus={() => this.setState({ backSide: true, frontSide: false })}
+            style={{
+              color: 'red'
+            }}
+          />
+          <Button
+            medium
+            icon={{ name: 'envira', type: 'font-awesome' }}
+            title="Submit"
+            backgroundColor="#4B86A6"
+            borderRadius={100}
+            onPress={() => {
+              if (
+                this.state.front.length === 0 ||
+                this.state.back.length === 0
+              ) {
+                alert('Please Enter Valid Input');
+              } else {
+                this.setQuestionAnswer(() => {
+                  this.setState({ question: '', answer: '' });
+                  this.onNavigate();
+                });
+              }
+            }}
+            style={{ marginBottom: 10 }}
+          />
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -72,9 +85,6 @@ export default class CreateQuiz extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "column",
-    backgroundColor: "#B5DBFC"
+    backgroundColor: '#4B6293'
   }
 });

@@ -1,27 +1,23 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import ListItemView from '../components/listItemView';
 import {
   Ionicons,
   MaterialIcons,
   Entypo,
   FontAwesome,
   MaterialCommunityIcons
-} from "@expo/vector-icons";
+} from '@expo/vector-icons';
 
-import { badgeColor } from "../styles/colors";
-import { List, ListItem } from "react-native-elements";
-import getData from "../config/fetchData";
+import { badgeColor } from '../styles/colors';
+import { List, ListItem } from 'react-native-elements';
+import getData from '../config/fetchData';
 
 export default class DeckView extends React.Component {
   state = { quizCards: [], cardSize: [] };
 
-  componentWillReceiveProps(nextProps) {
-    alert(nextProps);
-    console.log("here in DeckVIew");
-  }
   componentDidMount() {
-    let list = getData.getDecks();
+    const list = getData.getDecks();
 
     let cardSize = getData.getDeckSize(size => {
       list.then(quizCards => {
@@ -30,35 +26,31 @@ export default class DeckView extends React.Component {
       });
     });
   }
-  onNavigate = quizInfo => {
-    let cardObj = getData.getDeck(quizInfo);
-
-    this.props.navigation.navigate("CardOptions", quizInfo);
+  onNavigate = quizName => {
+    const cardObj = getData.getDeck(quizName);
+    this.props.navigation.navigate('CardOptions', quizName);
   };
   quizCardSize = quizName => {
-    let cardObj = getData.getDeckSize(quizName);
+    const cardSize = getData.getDeckSize(quizName);
+
+    return cardSize;
   };
   render() {
+    console.log(this.state.quizCards);
     return (
-      <ScrollView>
-
-        <List containerStyle={{ marginBottom: 20 }}>
-          {this.state.quizCards.map((quizName, index) =>
-            <ListItem
-              roundAvatar
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <View style={styles.container}>
+          {this.state.quizCards.map((quizName, index) => (
+            <ListItemView
               key={index}
-              title={quizName}
-              badge={{
-                value: this.state.cardSize[index],
-                textStyle: { color: badgeColor },
-                containerStyle: { marginTop: 3 }
-              }}
-              onPressRightIcon={() =>
-                this.onNavigate([quizName, this.state.cardSize[index]])}
+              listName={quizName}
+              quizSize={this.state.cardSize[index]}
+              onPress={() =>
+                this.onNavigate([quizName, this.state.cardSize[index]])
+              }
             />
-          )}
-        </List>
-
+          ))}
+        </View>
       </ScrollView>
     );
   }
@@ -67,8 +59,8 @@ export default class DeckView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#B5DBFC",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#B5DBFC',
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 });

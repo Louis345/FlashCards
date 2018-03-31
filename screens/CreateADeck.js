@@ -1,22 +1,27 @@
-import React from "React";
-import { View, Text, StyleSheet } from "react-native";
-import { FormLabel, FormInput, Button } from "react-native-elements";
-import fetchData from "../config/fetchData";
+import React from 'React';
+import { View, Text, StyleSheet } from 'react-native';
+import {
+  FormLabel,
+  FormInput,
+  Button,
+  KeyboardAvoidingView
+} from 'react-native-elements';
+import fetchData from '../config/fetchData';
 export default class CreateADeck extends React.Component {
   state = {
-    title: ""
+    title: ''
   };
   setTitle = e => {
     fetchData.checkSavedTitles(this.state.title, status => {
       if (status != -1) {
-        alert("The title is already in Use");
+        alert('The title is already in Use');
       } else {
         let status = fetchData.saveDeckTitle(this.state.title, response => {
           let title = this.state.title;
-          response && this.setState({ title: "" });
-          alert("Title saved");
+          response && this.setState({ title: '' });
+          alert('Title saved');
 
-          this.props.navigation.navigate("CardOptions", [title, 0]);
+          this.props.navigation.navigate('CardOptions', [title, 0]);
         });
       }
     });
@@ -24,10 +29,10 @@ export default class CreateADeck extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FormLabel>Create a List</FormLabel>
+        <FormLabel>Create a Lists</FormLabel>
         <FormInput
           containerStyle={{ marginBottom: 45 }}
-          inputStyle={{ color: "#fff" }}
+          inputStyle={{ color: '#fff' }}
           onChangeText={title => this.setState({ title })}
           value={this.state.title}
           autoComplete={false}
@@ -38,12 +43,12 @@ export default class CreateADeck extends React.Component {
             if (this.state.title) {
               this.setTitle();
             } else {
-              alert("Please Enter a title");
+              alert('Please Enter a title');
             }
           }}
           title="Create A deck"
-          buttonStyle={{ backgroundColor: "#fcd6b6", borderRadius: 10 }}
-          textStyle={{ textAlign: "center" }}
+          buttonStyle={{ backgroundColor: '#fcd6b6', borderRadius: 10 }}
+          textStyle={{ textAlign: 'center' }}
         />
       </View>
     );
@@ -53,9 +58,9 @@ export default class CreateADeck extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    backgroundColor: "#B5DBFC"
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#fff'
   }
 });

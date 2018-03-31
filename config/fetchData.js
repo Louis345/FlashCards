@@ -1,9 +1,11 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
 
 const api = {
   async getDeck(key) {
+    console.log(key);
     try {
-      let cards = AsyncStorage.getItem(key);
+      const cards = AsyncStorage.getItem(key);
+      console.log(cards);
       return cards;
     } catch (error) {
       // Error saving data
@@ -39,7 +41,7 @@ const api = {
   },
   removeNotificationSync(list) {
     let removedNotification = list.filter((items, idx) => {
-      return items !== "flash_cards";
+      return items !== 'flash_cards';
     });
     return removedNotification;
   },

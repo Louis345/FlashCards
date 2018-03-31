@@ -1,29 +1,28 @@
-import React from "react";
+import React from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   Animated,
-  Dimensions,
   Modal
-} from "react-native";
-import { Card, Button } from "react-native-elements";
+} from 'react-native';
+import { Card, Button } from 'react-native-elements';
 import {
   Ionicons,
   MaterialIcons,
   Entypo,
   FontAwesome
-} from "@expo/vector-icons";
-import fetchData from "../config/fetchData";
-import FlashCard from "../components/FlashCard";
-import { primaryBackgroundColor } from "../styles/colors";
+} from '@expo/vector-icons';
+import fetchData from '../config/fetchData';
+import FlashCard from '../components/FlashCard';
+import ProgressBar from '../components/progressBar';
+import { primaryBackgroundColor } from '../styles/colors';
 import {
   clearLocalNotification,
   setLocalNotification
-} from "../config/notifications";
+} from '../config/notifications';
 
 export default class Cards extends React.Component {
   componentDidMount() {
@@ -32,18 +31,26 @@ export default class Cards extends React.Component {
       let quizData = JSON.parse(card);
       this.setState({ data: quizData.question });
     });
+    setInterval(() => {
+      this.setState({
+        progress: this.state.progress + 0.1
+      });
+    }, 1000);
   }
   componentWillMount() {
     this.animatedValue = new Animated.ValueXY(0, 0);
   }
+
   state = {
     index: 0,
     data: [],
     showAnswer: true,
     quizTracker: 1,
     right: 0,
-    wrong: 0
+    wrong: 0,
+    progress: 0
   };
+
   showAnswer = () => {
     this.setState({ showAnswer: !this.state.showAnswer });
   };
@@ -62,21 +69,19 @@ export default class Cards extends React.Component {
         if (idx === this.state.index) {
           return (
             <View key={idx} style={styles.card1}>
+              <ProgressBar progress={this.state.progress} />
               <Animated.View style={[this.animatedValue.getLayout()]}>
                 <Card onPress={() => this.showAnswer()}>
                   <TouchableOpacity
                     onPress={() => this.showAnswer()}
                     style={styles.cardStyle}
                   >
-                    {this.state.showAnswer
-                      ? <Text style={styles.cardTextStyle}>
-                          {cards.question}
-                        </Text>
-                      : <Text style={styles.cardTextStyle}>
-                          {cards.answer}
-                        </Text>}
+                    {this.state.showAnswer ? (
+                      <Text style={styles.cardTextStyle}>{cards.question}</Text>
+                    ) : (
+                      <Text style={styles.cardTextStyle}>{cards.answer}</Text>
+                    )}
                   </TouchableOpacity>
-
                 </Card>
               </Animated.View>
             </View>
@@ -86,9 +91,7 @@ export default class Cards extends React.Component {
           <View key={idx} style={styles.card1}>
             <Card>
               <View style={styles.cardStyle}>
-                <Text style={styles.cardTextStyle}>
-                  {cards.question}
-                </Text>
+                <Text style={styles.cardTextStyle}>{cards.question}</Text>
               </View>
             </Card>
           </View>
@@ -117,7 +120,7 @@ export default class Cards extends React.Component {
           <View
             style={{
               flex: 0.8,
-              justifyContent: "center"
+              justifyContent: 'center'
             }}
           >
             <FlashCard
@@ -125,38 +128,36 @@ export default class Cards extends React.Component {
               right={this.state.right}
               wrong={this.state.wrong}
             />
-
           </View>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               flex: 0.2
             }}
           >
             <Button
-              icon={{ name: "envira", type: "font-awesome" }}
+              icon={{ name: 'envira', type: 'font-awesome' }}
               title="Try Again"
               buttonStyle={styles.buttonStyles}
-              backgroundColor={"red"}
+              backgroundColor={'red'}
               borderRadius={10}
               onPress={() => {
                 this.props.navigation.navigate(
-                  "startQuiz",
+                  'startQuiz',
                   this.props.navigation.state.params
                 );
               }}
             />
             <Button
-              icon={{ name: "envira", type: "font-awesome" }}
+              icon={{ name: 'envira', type: 'font-awesome' }}
               title="Exit"
               buttonStyle={styles.buttonStyles}
-              backgroundColor={"red"}
+              backgroundColor={'red'}
               borderRadius={10}
               onPress={() => {
-                this.props.navigation.navigate("DeckView");
+                this.props.navigation.navigate('DeckView');
               }}
             />
-
           </View>
         </View>
       );
@@ -164,25 +165,24 @@ export default class Cards extends React.Component {
     return (
       <View style={styles.cardContainer}>
         <View style={styles.topIconContainer}>
-          <Text style={{ fontSize: 20, color: "#fff" }}>{`${this.state
-            .quizTracker} out of ${params[1]}`}</Text>
+          <Text style={{ fontSize: 20, color: '#fff' }}>{`${
+            this.state.quizTracker
+          } out of ${params[1]}`}</Text>
           <MaterialIcons
             style={[styles.iconStyle]}
             onPress={() => this.showAnswer()}
-            name={"question-answer"}
+            name={'question-answer'}
           />
         </View>
-        <View style={{ flex: 0.5 }}>
-          {this.renderCards()}
-        </View>
+        <View style={{ flex: 0.5 }}>{this.renderCards()}</View>
 
         <View style={styles.buttonContainer}>
           <Button
             large
-            icon={{ name: "envira", type: "font-awesome" }}
+            icon={{ name: 'envira', type: 'font-awesome' }}
             title="I got It"
             buttonStyle={styles.buttonStyles}
-            backgroundColor={"#7DE2D5"}
+            backgroundColor={'#7DE2D5'}
             borderRadius={10}
             onPress={() => {
               this.nextCard();
@@ -195,10 +195,10 @@ export default class Cards extends React.Component {
           />
           <Button
             large
-            icon={{ name: "envira", type: "font-awesome" }}
+            icon={{ name: 'envira', type: 'font-awesome' }}
             title="I don't know"
             buttonStyle={styles.buttonStyles}
-            backgroundColor={"#7DE2D5"}
+            backgroundColor={'#7DE2D5'}
             borderRadius={10}
             onPress={() => {
               this.nextCard();
@@ -217,25 +217,25 @@ export default class Cards extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff'
   },
   cardContainer: {
     flex: 1,
     backgroundColor: primaryBackgroundColor
   },
   results: {
-    backgroundColor: "#F84D43",
+    backgroundColor: '#F84D43',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   scoreCard: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: "#ddd",
-    shadowColor: "#000",
+    borderColor: '#ddd',
+    shadowColor: '#000',
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -248,16 +248,16 @@ const styles = StyleSheet.create({
     height: 100
   },
   cardStyle: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   cardTextStyle: {
     fontSize: 19,
     padding: 20
   },
   card1: {
-    position: "absolute",
+    position: 'absolute',
     left: 15,
     right: 15,
     top: 24,
@@ -265,26 +265,26 @@ const styles = StyleSheet.create({
   },
 
   topIconContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     margin: 10,
     flex: 0.25
   },
   buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 0.25
   },
   button: {
     marginTop: 10,
-    backgroundColor: "red"
+    backgroundColor: 'red'
   },
   buttonStyle: {
     borderRadius: 50
   },
   iconStyle: {
     fontSize: 30,
-    color: "#fff"
+    color: '#fff'
   }
 });

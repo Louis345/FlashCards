@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,14 +6,14 @@ import {
   View,
   TouchableOpacity,
   Animated
-} from "react-native";
-import { Card, Button } from "react-native-elements";
+} from 'react-native';
+import { Card, Button } from 'react-native-elements';
 import {
   Ionicons,
   MaterialIcons,
   Entypo,
   FontAwesome
-} from "@expo/vector-icons";
+} from '@expo/vector-icons';
 
 export default class Menu extends React.Component {
   onNavigate = screen => {
@@ -31,10 +31,10 @@ export default class Menu extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.menuContainer}>
-          <TouchableOpacity onPress={() => this.onNavigate("DeckView")}>
+          <TouchableOpacity onPress={() => this.onNavigate('DeckView')}>
             <View style={[styles.menuStyle]}>
               <Ionicons
-                name={"ios-list-box-outline"}
+                name={'ios-list-box-outline'}
                 style={[styles.iconStyle]}
               />
               <Text style={[styles.fontStyle]}>Deck List View</Text>
@@ -42,7 +42,7 @@ export default class Menu extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={[styles.menuStyle]}>
-              <Ionicons name={"ios-create"} style={[styles.iconStyle]} />
+              <Ionicons name={'ios-create'} style={[styles.iconStyle]} />
               <Text style={[styles.fontStyle]}>Create Deck</Text>
             </View>
           </TouchableOpacity>
@@ -54,14 +54,14 @@ export default class Menu extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={[styles.menuStyle]}>
-              <FontAwesome name={"hand-pointer-o"} style={[styles.iconStyle]} />
+              <FontAwesome name={'hand-pointer-o'} style={[styles.iconStyle]} />
               <Text style={[styles.fontStyle]}>Select a Deck</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <View style={[styles.menuStyle]}>
               <MaterialIcons
-                name={"create-new-folder"}
+                name={'create-new-folder'}
                 style={[styles.iconStyle]}
               />
               <Text style={[styles.fontStyle]}>Create a Quiz</Text>
@@ -79,34 +79,32 @@ export default class Menu extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#4B6293',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   menuStyle: {
     height: 150,
     width: 150,
-    backgroundColor: "#7DE2D5",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#7DE2D5',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 5,
     marginLeft: 22,
     borderRadius: 10
   },
   menuContainer: {
-    borderWidth: 1,
-    borderColor: "white",
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   menu1: {
-    backgroundColor: "#7DE2D5"
+    backgroundColor: '#7DE2D5'
   },
   fontStyle: {
-    color: "#fff"
+    color: '#fff'
   },
   iconStyle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 50
   }
 });
