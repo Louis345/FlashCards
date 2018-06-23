@@ -15,7 +15,6 @@ class ProgressBar extends Component {
   }
 
   render() {
-    console.log(this.props.progress);
     const {
       height,
       borderColor,

@@ -16,9 +16,9 @@ import {
   FontAwesome
 } from '@expo/vector-icons';
 import fetchData from '../config/fetchData';
-import FlashCard from '../components/FlashCard';
+import scoreCard from '../components/scoreCard';
 import ProgressBar from '../components/progressBar';
-import { primaryBackgroundColor } from '../styles/colors';
+import { backgroundColor } from '../styles/colors';
 import {
   clearLocalNotification,
   setLocalNotification
@@ -26,16 +26,11 @@ import {
 
 export default class Cards extends React.Component {
   componentDidMount() {
-    let quizCards = fetchData.getDeck(this.props.navigation.state.params[0]);
+    const quizCards = fetchData.getDeck(this.props.navigation.state.params[0]);
     quizCards.then(card => {
-      let quizData = JSON.parse(card);
+      const quizData = JSON.parse(card);
       this.setState({ data: quizData.question });
     });
-    setInterval(() => {
-      this.setState({
-        progress: this.state.progress + 0.1
-      });
-    }, 1000);
   }
   componentWillMount() {
     this.animatedValue = new Animated.ValueXY(0, 0);
@@ -123,7 +118,7 @@ export default class Cards extends React.Component {
               justifyContent: 'center'
             }}
           >
-            <FlashCard
+            <scoreCard
               length={this.state.data.length}
               right={this.state.right}
               wrong={this.state.wrong}
@@ -139,7 +134,7 @@ export default class Cards extends React.Component {
               icon={{ name: 'envira', type: 'font-awesome' }}
               title="Try Again"
               buttonStyle={styles.buttonStyles}
-              backgroundColor={'red'}
+              backgroundColor={'#fff'}
               borderRadius={10}
               onPress={() => {
                 this.props.navigation.navigate(
@@ -152,7 +147,7 @@ export default class Cards extends React.Component {
               icon={{ name: 'envira', type: 'font-awesome' }}
               title="Exit"
               buttonStyle={styles.buttonStyles}
-              backgroundColor={'red'}
+              backgroundColor={'#fff'}
               borderRadius={10}
               onPress={() => {
                 this.props.navigation.navigate('DeckView');
@@ -221,7 +216,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    backgroundColor: primaryBackgroundColor
+    backgroundColor: backgroundColor
   },
   results: {
     backgroundColor: '#F84D43',
@@ -277,8 +272,7 @@ const styles = StyleSheet.create({
     flex: 0.25
   },
   button: {
-    marginTop: 10,
-    backgroundColor: 'red'
+    marginTop: 10
   },
   buttonStyle: {
     borderRadius: 50

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Animated
 } from 'react-native';
+import { backgroundColor } from '../styles/colors.js';
 import { Card, Button } from 'react-native-elements';
 import {
   Ionicons,
@@ -40,7 +41,7 @@ export default class Menu extends React.Component {
               <Text style={[styles.fontStyle]}>Deck List View</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onNavigate('CreateADeck')}>
             <View style={[styles.menuStyle]}>
               <Ionicons name={'ios-create'} style={[styles.iconStyle]} />
               <Text style={[styles.fontStyle]}>Create Deck</Text>
@@ -79,7 +80,7 @@ export default class Menu extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4B6293',
+    backgroundColor: backgroundColor,
     alignItems: 'center',
     justifyContent: 'center'
   },

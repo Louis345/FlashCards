@@ -4,6 +4,7 @@ import { FormLabel, FormInput, Button } from 'react-native-elements';
 import fetchData from '../config/fetchData';
 import Card from '../components/Card';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { backgroundColor } from '../styles/colors';
 export default class CreateQuiz extends React.Component {
   state = {
     front: '',
@@ -11,6 +12,7 @@ export default class CreateQuiz extends React.Component {
     frontSide: false,
     backSide: false
   };
+
   onNavigate = () => {
     const flashcardInfo = { ...this.props.navigation.state.params };
     flashcardInfo[1]++;
@@ -25,13 +27,20 @@ export default class CreateQuiz extends React.Component {
         answer: this.state.back
       }
     );
+    console.log(callback);
     callback();
   };
 
   render() {
     return (
       <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
-        <View style={{ justifyContent: 'space-between', flex: 1 }}>
+        <View
+          style={{
+            justifyContent: 'space-between',
+            flex: 1,
+            backgroundColor: backgroundColor
+          }}
+        >
           <Card
             front={this.state.front}
             back={this.state.back}
@@ -51,9 +60,6 @@ export default class CreateQuiz extends React.Component {
             autoCorrect={false}
             onChangeText={input => this.setState({ back: input })}
             onFocus={() => this.setState({ backSide: true, frontSide: false })}
-            style={{
-              color: 'red'
-            }}
           />
           <Button
             medium

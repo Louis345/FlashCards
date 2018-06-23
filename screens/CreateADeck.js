@@ -7,10 +7,13 @@ import {
   KeyboardAvoidingView
 } from 'react-native-elements';
 import fetchData from '../config/fetchData';
+import Cards from '../components/Card';
+import dismissKeyboard from 'dismissKeyboard';
 export default class CreateADeck extends React.Component {
   state = {
     title: ''
   };
+
   setTitle = e => {
     fetchData.checkSavedTitles(this.state.title, status => {
       if (status != -1) {
@@ -19,9 +22,9 @@ export default class CreateADeck extends React.Component {
         let status = fetchData.saveDeckTitle(this.state.title, response => {
           let title = this.state.title;
           response && this.setState({ title: '' });
-          alert('Title saved');
-
           this.props.navigation.navigate('CardOptions', [title, 0]);
+          dismissKeyboard();
+          alert('Title saved');
         });
       }
     });
@@ -29,7 +32,7 @@ export default class CreateADeck extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FormLabel>Create a Lists</FormLabel>
+        <FormLabel>Create A Deck</FormLabel>
         <FormInput
           containerStyle={{ marginBottom: 45 }}
           inputStyle={{ color: '#fff' }}
@@ -47,7 +50,11 @@ export default class CreateADeck extends React.Component {
             }
           }}
           title="Create A deck"
-          buttonStyle={{ backgroundColor: '#fcd6b6', borderRadius: 10 }}
+          buttonStyle={{
+            backgroundColor: '#4B86A6',
+            borderRadius: 10
+          }}
+          titleStyle={{ color: 'red' }}
           textStyle={{ textAlign: 'center' }}
         />
       </View>
@@ -61,6 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: '#4B6293'
   }
 });

@@ -64,8 +64,6 @@ export default class Card extends Component {
       this.flipToBack();
     }
     if (!this.props.backSide) {
-      console.log(this.props);
-      console.log(this.state);
       this.flipToFront();
     }
   }
@@ -79,16 +77,14 @@ export default class Card extends Component {
 
     return (
       <View style={styles.container}>
-        <View>
-          <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
-            <Text style={styles.card}>{this.props.front}</Text>
-          </Animated.View>
-          <Animated.View
-            style={[backAnimatedStyle, styles.flipCard, styles.back]}
-          >
-            <Text style={styles.card}>{this.props.back}</Text>
-          </Animated.View>
-        </View>
+        <Animated.View style={[styles.flipCard, frontAnimatedStyle]}>
+          <Text style={styles.card}>{this.props.front}</Text>
+        </Animated.View>
+        <Animated.View
+          style={[backAnimatedStyle, styles.flipCard, styles.back]}
+        >
+          <Text style={styles.card}>{this.props.back}</Text>
+        </Animated.View>
       </View>
     );
   }

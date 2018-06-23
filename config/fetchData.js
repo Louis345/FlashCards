@@ -2,10 +2,9 @@ import { AsyncStorage } from 'react-native';
 
 const api = {
   async getDeck(key) {
-    console.log(key);
     try {
       const cards = AsyncStorage.getItem(key);
-      console.log(cards);
+
       return cards;
     } catch (error) {
       // Error saving data

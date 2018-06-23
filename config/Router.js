@@ -11,8 +11,10 @@ import CardOptions from '../screens/CardOptions';
 import CreateQuiz from '../screens/CreateQuiz';
 import CreateADeck from '../screens/CreateADeck';
 import ProgressBar from '../components/progressBar';
-import Cards from '../components/Cards';
-import test from '../screens/Test';
+import QuizCard from '../components/QuizCard';
+import Screen from '../components/Screen';
+import SwipeCard from '../components/SwipeCard';
+import { HeaderTextStyle, HeaderBackgroundColor } from '../styles/colors';
 import {
   Ionicons,
   MaterialIcons,
@@ -22,12 +24,12 @@ import {
 } from '@expo/vector-icons';
 const MainNavigator = StackNavigator({
   Home: {
-    screen: DeckView,
+    screen: Menu,
     navigationOptions: ({ navigation }) => ({
       title: 'Menu',
       headerTintColor: '#7DE2D5',
       headerStyle: {
-        backgroundColor: '#2C2B50'
+        backgroundColor: HeaderBackgroundColor
       }
     }),
     header: navigation => ({
@@ -57,7 +59,7 @@ const MainNavigator = StackNavigator({
       title: 'Card Info',
       headerTintColor: '#7DE2D5',
       headerStyle: {
-        backgroundColor: '#2C2B50'
+        backgroundColor: HeaderBackgroundColor
       },
       headerLeft: (
         <TouchableOpacity
@@ -79,25 +81,33 @@ const MainNavigator = StackNavigator({
   CreateQuiz: {
     screen: CreateQuiz,
     navigationOptions: ({ navigation }) => ({
-      title: 'create quiz'
+      title: 'Create Quiz',
+      headerTintColor: HeaderTextStyle,
+      headerStyle: {
+        backgroundColor: HeaderBackgroundColor
+      }
     })
   },
   startQuiz: {
-    screen: Cards,
+    screen: QuizCard,
     navigationOptions: ({ navigation }) => ({
-      title: 'create quiz'
+      title: 'Create Quiz',
+      headerTintColor: HeaderTextStyle,
+      headerStyle: {
+        backgroundColor: HeaderBackgroundColor
+      }
     })
   }
 });
 
 const navigator = StackNavigator({
   Home: {
-    screen: CreateADeck,
+    screen: Menu,
     navigationOptions: ({ navigation }) => ({
       title: 'Menu',
       headerTintColor: '#7DE2D5',
       headerStyle: {
-        backgroundColor: '#2C2B50'
+        backgroundColor: HeaderBackgroundColor
       }
     }),
     header: navigation => ({
@@ -122,12 +132,7 @@ class MyNotificationsScreen extends React.Component {
   };
 
   render() {
-    return (
-      <Button
-        onPress={() => this.props.navigation.navigate('DeckView')}
-        title="Go back home"
-      />
-    );
+    return <Button onPress={() => alert('pressed')} title="Go back home" />;
   }
 }
 
@@ -151,14 +156,14 @@ const bottomNavigator = TabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name={'ios-home-outline'}
-            onPress={() => navigation.navigate('DeckView')}
+            onPress={() => navigation.navigate('Home')}
             style={[styles.iconStyle]}
           />
         )
       })
     },
     CreateADeck: {
-      screen: navigator,
+      screen: CreateADeck,
       navigationOptions: ({ navigation }) => ({
         title: 'Create A Deck',
         tabBarIcon: ({ tintColor }) => (

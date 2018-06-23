@@ -6,10 +6,8 @@ import {
   MaterialIcons,
   Entypo,
   FontAwesome,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
 } from '@expo/vector-icons';
-
-import { badgeColor } from '../styles/colors';
 import { List, ListItem } from 'react-native-elements';
 import getData from '../config/fetchData';
 
@@ -36,7 +34,6 @@ export default class DeckView extends React.Component {
     return cardSize;
   };
   render() {
-    console.log(this.state.quizCards);
     return (
       <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View style={styles.container}>
@@ -45,9 +42,7 @@ export default class DeckView extends React.Component {
               key={index}
               listName={quizName}
               quizSize={this.state.cardSize[index]}
-              onPress={() =>
-                this.onNavigate([quizName, this.state.cardSize[index]])
-              }
+              onPress={() => this.onNavigate([quizName, this.state.cardSize[index]])}
             />
           ))}
         </View>
@@ -59,8 +54,8 @@ export default class DeckView extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#B5DBFC',
+    backgroundColor: '#4B6293',
     flexDirection: 'row',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });
